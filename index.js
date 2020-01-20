@@ -10,6 +10,9 @@ const
 	express = require("express"),
 	app = express(),
 	http = require('http'),
+	io = require('socket.io')(http),
+	ioListeners = require("./io-listeners"),
+	shared_session = require("express-socket.io-session"),
 	server = http.createServer(app),
 	morgan = require("morgan"),
 	expressSession = require("express-session"),
@@ -29,6 +32,11 @@ const
 		},
 		rolling: true
 	});
+
+io.set('transports', ['websocket']);
+io.use(shared_session(session, undefined, {autoSave: true}));
+ioListeners(io);
+
 
 dotenv.config();
 
