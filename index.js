@@ -1,7 +1,7 @@
 const
 	fs = require("fs"),
 	dotenv = require('dotenv'),
-	sequelize = require("./database"),
+	db = require("./database"),
 	opengraph = require("./opengraph"),
 	app_port = process.env.PORT || 3001,
 	bodyParser = require("body-parser"),
@@ -17,7 +17,7 @@ const
 	morgan = require("morgan"),
 	expressSession = require("express-session"),
 	SequelizeConnectSession = require('connect-session-sequelize')(expressSession.Store),
-	sequelizeStore = new SequelizeConnectSession({db: sequelize}),
+	sequelizeStore = new SequelizeConnectSession({db: db.sequelize}),
 	session = expressSession({
 		secret: process.env.SESSION_SECRET || "some_semi_permanent_secret",
 		name: "session",

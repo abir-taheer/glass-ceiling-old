@@ -55,8 +55,9 @@ const TurnWinners = require("./schemas/turnWinners")(sequelize, Database);
 GamePlayers.hasMany(PlayerCards, {foreignKey: "playerId"});
 PlayerCards.belongsTo(GamePlayers, {foreignKey: "playerId"});
 
+CardPacks.belongsTo(Users, {foreignKey: "creator"});
+
 Games.hasMany(PlayerCards);
-Cards.hasMany(PlayerCards);
 PlayerCards.belongsTo(Games, {foreignKey: "gameId"});
 PlayerCards.belongsTo(Cards, {foreignKey: "cardId"});
 
@@ -89,4 +90,10 @@ sequelize.sync(
 	// {force: true}
 	);
 
-module.exports = sequelize;
+module.exports = {
+	sequelize,
+	Cards,
+	CardPacks,
+	CardsInPack,
+	Users
+};

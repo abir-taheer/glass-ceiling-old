@@ -5,11 +5,11 @@ module.exports = (sequelize, Database) => {
 			primaryKey: true,
 			autoIncrement: true
 		},
-		cardType: {
+		type: {
 			type: Database.INTEGER,
 			allowNull: false
 		},
-		cardContent: {
+		content: {
 			type: Database.STRING,
 			allowNull: false
 		},
