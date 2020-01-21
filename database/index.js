@@ -86,7 +86,7 @@ TurnWinners.belongsTo(GameTurns, {foreignKey: "turnId"});
 TurnWinners.belongsTo(GamePlayers, {foreignKey: "playerId"});
 
 sequelize.sync(
-	{force: true}
+	// {force: true}
 	);
 
 module.exports = sequelize;
