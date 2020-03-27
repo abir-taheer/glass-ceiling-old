@@ -24,8 +24,8 @@
   "homepage": "https://github.com/abir-taheer/quicker-picker-upper#readme",
   "dependencies": {
     "body-parser": "latest",
+    "cookie-parser": "^1.4.5",
     "connect-session-sequelize": "^6.1.1",
-    "cookie-parser": "^1.4.4",
     "dotenv": "latest",
     "express": "latest",
     "express-session": "^1.17.0",
