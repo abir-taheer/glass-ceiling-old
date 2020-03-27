@@ -1,37 +1,36 @@
-const
-	fs = require("fs"),
-	dotenv = require('dotenv'),
-	db = require("./database"),
-	opengraph = require("./opengraph"),
-	app_port = process.env.PORT || 3001,
-	bodyParser = require("body-parser"),
-	cookieParser = require('cookie-parser'),
-	path = require("path"),
-	express = require("express"),
-	app = express(),
-	http = require('http'),
-	server = http.createServer(app),
-	io = require('socket.io')(server),
-	ioListeners = require("./ioListeners"),
-	shared_session = require("express-socket.io-session"),
-	morgan = require("morgan"),
-	expressSession = require("express-session"),
-	SequelizeConnectSession = require('connect-session-sequelize')(expressSession.Store),
-	sequelizeStore = new SequelizeConnectSession({db: db.sequelize}),
-	session = expressSession({
-		secret: process.env.SESSION_SECRET || "some_semi_permanent_secret",
-		name: "session",
-		resave: true,
-		saveUninitialized: false,
-		store: sequelizeStore,
-		cookie: {
-			path: '/',
-			httpOnly: true,
-			secure: false,
-			maxAge: Number(process.env.SESSION_MAX_AGE) || (15 * 86400 * 1000)
-		},
-		rolling: true
-	});
+const fs = require("fs");
+const dotenv = require('dotenv');
+const db = require("./database");
+const opengraph = require("./opengraph");
+const app_port = process.env.PORT || 3001;
+const bodyParser = require("body-parser");
+const cookieParser = require('cookie-parser');
+const path = require("path");
+const express = require("express");
+const app = express();
+const http = require('http');
+const server = http.createServer(app);
+const io = require('socket.io')(server);
+const ioListeners = require("./ioListeners");
+const shared_session = require("express-socket.io-session");
+const morgan = require("morgan");
+const expressSession = require("express-session");
+const SequelizeConnectSession = require('connect-session-sequelize')(expressSession.Store);
+const sequelizeStore = new SequelizeConnectSession({db: db.sequelize});
+const session = expressSession({
+	secret: process.env.SESSION_SECRET || "some_semi_permanent_secret",
+	name: "session",
+	resave: true,
+	saveUninitialized: false,
+	store: sequelizeStore,
+	cookie: {
+		path: '/',
+		httpOnly: true,
+		secure: false,
+		maxAge: Number(process.env.SESSION_MAX_AGE) || (15 * 86400 * 1000)
+	},
+	rolling: true
+});
 
 io.set('transports', ['websocket']);
 io.use(shared_session(session, undefined, {autoSave: true}));
